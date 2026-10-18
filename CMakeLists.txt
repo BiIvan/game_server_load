@@ -19,7 +19,13 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 # Файлы CMakeDeps от Conan 1 находятся в каталоге build.
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_BINARY_DIR}")
 
-find_package(Boost REQUIRED COMPONENTS log log_setup program_options filesystem system)
+find_package(Boost REQUIRED CONFIG COMPONENTS
+    log
+    log_setup
+    program_options
+    filesystem
+    system
+)
 find_package(Threads REQUIRED)
 
 add_executable(game_server

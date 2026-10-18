@@ -34,10 +34,10 @@ RUN mkdir -p build && cd build && conan install .. --build=missing && \
 COPY ./src ./src/
 
 # Сборка проекта (без conan install — он уже сделан выше)
-RUN cd build && \
-    cmake -DCMAKE_BUILD_TYPE=Release .. && \
-#    cmake --build . --parallel "$(nproc)"
-    cmake --build . --parallel 1
+RUN cmake -S /app -B /app/build \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_TOOLCHAIN_FILE=/app/build/conan_toolchain.cmake \
+    && cmake --build /app/build --parallel 1
 
 # --- Этап запуска (тонкий образ) ---
 #FROM debian:bookworm-slim AS run
